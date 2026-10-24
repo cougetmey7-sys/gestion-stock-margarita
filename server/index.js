@@ -75,7 +75,7 @@ app.use('/api', (_req, res) => {
 });
 
 if (hasFrontendBuild) {
-  app.use(express.static(publicDir));
+  app.use(express.static(publicDir, { extensions: ['html'] }));
   app.get(/^(?!\/api(?:\/|$)|\/health(?:\/|$)).*/, (_req, res) => {
     res.sendFile(path.join(publicDir, 'index.html'));
   });

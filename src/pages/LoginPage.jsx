@@ -73,6 +73,9 @@ export default function LoginPage() {
               </div>
             ))}
           </div>
+          <a href="/presentacion" className="mt-4 block text-center text-sm font-medium text-[#8a5a00] underline">
+            ¿Qué hace este sistema? Ver la presentación
+          </a>
         </form>
       </div>
       <PoweredBy />
