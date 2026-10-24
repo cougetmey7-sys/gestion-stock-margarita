@@ -1,0 +1,56 @@
+{
+  "NODE_ENV": {
+    "isOptional": false,
+    "defaultValue": "production",
+    "description": "Entorno de Node",
+    "value": "production"
+  },
+  "CORS_ORIGIN": {
+    "isOptional": false,
+    "defaultValue": "*",
+    "description": "Origen CORS",
+    "value": "*"
+  },
+  "DATABASE_URL": {
+    "isOptional": false,
+    "defaultValue": "${{Postgres.DATABASE_URL}}",
+    "description": "URL de Postgres",
+    "value": "${{Postgres.DATABASE_URL}}"
+  },
+  "STORE_TIMEZONE": {
+    "isOptional": false,
+    "defaultValue": "America/Argentina/Buenos_Aires",
+    "description": "Zona horaria del comercio",
+    "value": "America/Argentina/Buenos_Aires"
+  },
+  "STORE_NAME": {
+    "isOptional": false,
+    "defaultValue": "Mi comercio",
+    "description": "Nombre del comercio",
+    "value": "Mi comercio"
+  },
+  "SEED_DEMO": {
+    "isOptional": false,
+    "defaultValue": "true",
+    "description": "Carga datos de ejemplo si la base está vacía",
+    "value": "true"
+  },
+  "DEFAULT_ADMIN_USER": {
+    "isOptional": false,
+    "defaultValue": "admin",
+    "description": "Usuario admin inicial",
+    "value": "admin"
+  },
+  "DEFAULT_ADMIN_PASSWORD": {
+    "isOptional": false,
+    "defaultValue": "${{secret(20)}}",
+    "description": "Password admin inicial (copiala después del deploy)",
+    "value": "${{secret(20)}}"
+  },
+  "UPLOAD_DIR": {
+    "isOptional": false,
+    "defaultValue": "/data/uploads",
+    "description": "Carpeta de fotos y archivos en el volumen",
+    "value": "/data/uploads"
+  }
+}

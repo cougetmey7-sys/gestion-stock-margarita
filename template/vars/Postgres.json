@@ -1,0 +1,74 @@
+{
+  "PGDATA": {
+    "isOptional": false,
+    "description": "Ubicación donde se inicializa la base de datos",
+    "defaultValue": "/var/lib/postgresql/data/pgdata",
+    "value": "/var/lib/postgresql/data/pgdata"
+  },
+  "PGHOST": {
+    "isOptional": false,
+    "defaultValue": "${{RAILWAY_PRIVATE_DOMAIN}}",
+    "description": "Nombre de dominio privado de Railway.",
+    "value": "${{RAILWAY_PRIVATE_DOMAIN}}"
+  },
+  "PGPORT": {
+    "isOptional": false,
+    "description": "Puerto para conectar a Postgres.",
+    "defaultValue": "5432",
+    "value": "5432"
+  },
+  "PGUSER": {
+    "isOptional": false,
+    "defaultValue": "${{POSTGRES_USER}}",
+    "description": "Variable requerida para el panel de datos",
+    "value": "${{POSTGRES_USER}}"
+  },
+  "PGDATABASE": {
+    "isOptional": false,
+    "defaultValue": "${{POSTGRES_DB}}",
+    "description": "Variable requerida para el panel de datos.",
+    "value": "${{POSTGRES_DB}}"
+  },
+  "PGPASSWORD": {
+    "isOptional": false,
+    "defaultValue": "${{POSTGRES_PASSWORD}}",
+    "description": "Variable requerida para el panel de datos",
+    "value": "${{POSTGRES_PASSWORD}}"
+  },
+  "POSTGRES_DB": {
+    "isOptional": false,
+    "description": "Base de datos por defecto al iniciar la imagen.",
+    "defaultValue": "railway",
+    "value": "railway"
+  },
+  "DATABASE_URL": {
+    "isOptional": false,
+    "defaultValue": "postgresql://${{PGUSER}}:${{POSTGRES_PASSWORD}}@${{RAILWAY_PRIVATE_DOMAIN}}:5432/${{PGDATABASE}}",
+    "description": "URL para conectar a la base Postgres.",
+    "value": "postgresql://${{PGUSER}}:${{POSTGRES_PASSWORD}}@${{RAILWAY_PRIVATE_DOMAIN}}:5432/${{PGDATABASE}}"
+  },
+  "POSTGRES_USER": {
+    "isOptional": false,
+    "description": "Usuario para conectar a Postgres",
+    "defaultValue": "postgres",
+    "value": "postgres"
+  },
+  "SSL_CERT_DAYS": {
+    "isOptional": true,
+    "description": "Vencimiento del certificado SSL en días.",
+    "defaultValue": "820",
+    "value": "820"
+  },
+  "POSTGRES_PASSWORD": {
+    "isOptional": false,
+    "defaultValue": "${{ secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\") }}",
+    "description": "Password para conectar a la DB",
+    "value": "${{ secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\") }}"
+  },
+  "RAILWAY_DEPLOYMENT_DRAINING_SECONDS": {
+    "isOptional": false,
+    "description": "Permite que Postgres se apague de forma limpia",
+    "defaultValue": "60",
+    "value": "60"
+  }
+}
