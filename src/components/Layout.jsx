@@ -20,6 +20,7 @@ import { useAuth } from '../auth';
 import { useStore } from '../store';
 import PoweredBy from './PoweredBy';
 import { BRAND } from '../brand';
+import { useLicense } from '../license';
 import Sitemap from './Sitemap';
 
 export const NAV = [
@@ -39,6 +40,7 @@ export const NAV = [
 export default function Layout() {
   const { user, logout } = useAuth();
   const { settings } = useStore();
+  const { license } = useLicense();
   const [open, setOpen] = useState(false);
 
   return (
@@ -63,6 +65,13 @@ export default function Layout() {
           </button>
         </div>
       </header>
+      {license?.status === 'trial' && (
+        <div className="bg-[#fff6d6] px-4 py-2 text-center text-sm text-[#6b4600]">
+          Versión de prueba ·{' '}
+          {license.daysLeft === 1 ? 'último día' : `quedan ${license.daysLeft} días`} (hasta el{' '}
+          {new Date(license.trialEndsAt).toLocaleDateString('es-AR', { timeZone: 'America/Argentina/Buenos_Aires' })})
+        </div>
+      )}
       <Sitemap />
       {open && (
         <div className="fixed inset-0 z-40 lg:hidden" onClick={() => setOpen(false)}>

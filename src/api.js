@@ -23,6 +23,7 @@ async function request(path, { method = 'GET', body } = {}) {
     body: body !== undefined ? JSON.stringify(body) : undefined,
   });
   const data = await res.json().catch(() => ({}));
+  if (res.status === 402) window.dispatchEvent(new Event('license-expired'));
   if (!res.ok) throw new Error(data.error || 'Error de red');
   return data;
 }
@@ -60,6 +61,8 @@ export async function downloadFile(path, fallbackName) {
 }
 
 export const api = {
+  license: () => request('/api/license'),
+  activateLicense: (code) => request('/api/license/activate', { method: 'POST', body: { code } }),
   login: (body) => request('/api/auth/login', { method: 'POST', body }),
   me: () => request('/api/auth/me'),
   logout: () => request('/api/auth/logout', { method: 'POST', body: {} }),

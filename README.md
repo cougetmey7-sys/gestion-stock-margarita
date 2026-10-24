@@ -157,3 +157,15 @@ railway templates publish <template-id> \
 ```
 
 Más detalle en [`template/TEMPLATE.md`](template/TEMPLATE.md) y el texto del marketplace en [`template/marketplace.md`](template/marketplace.md).
+
+## Período de prueba
+
+| Variable | Qué hace |
+|----------|----------|
+| `TRIAL_ENDS_AT` | Fecha de fin de la prueba (`2026-10-30`, vence a las 23:59 hora Argentina). Vacía = sin prueba. |
+| `LICENSE_KEY` | Código de activación. Al vencer la prueba, el sistema lo pide y, si es correcto, queda activado. |
+| `SUPPORT_CONTACT` | Opcional. Se muestra en la pantalla de prueba vencida (por ejemplo, un WhatsApp). |
+
+- Para extender la prueba, cambiá `TRIAL_ENDS_AT`.
+- Para bloquear de nuevo un sistema activado (por ejemplo, si deja de pagar), cambiá `LICENSE_KEY`: va a pedir el código nuevo.
+- Los datos nunca se borran.

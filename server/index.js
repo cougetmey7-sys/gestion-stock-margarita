@@ -17,6 +17,8 @@ import pricesRouter from './routes/prices.js';
 import ioRouter from './routes/io.js';
 import attachmentsRouter from './routes/attachments.js';
 import movementsRouter from './routes/movements.js';
+import licenseRouter from './routes/license.js';
+import { requireLicense } from './lib/license.js';
 import { ensureUploadDir } from './lib/storage.js';
 
 assertRuntimeConfig();
@@ -27,6 +29,7 @@ const publicDir = path.join(__dirname, 'public');
 const hasFrontendBuild = fs.existsSync(path.join(publicDir, 'index.html'));
 
 const app = express();
+app.set('trust proxy', 1);
 app.use(
   cors({
     origin: config.corsOrigin === '*' ? true : config.corsOrigin.split(',').map((s) => s.trim()),
@@ -41,6 +44,9 @@ app.get('/health', (_req, res) => {
     frontend: hasFrontendBuild,
   });
 });
+
+app.use('/api/license', licenseRouter);
+app.use('/api', requireLicense);
 
 app.use('/api/auth', async (req, res, next) => {
   if (req.path === '/login') return next();

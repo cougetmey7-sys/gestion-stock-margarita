@@ -18,7 +18,22 @@ export const config = {
   defaultAdminPassword: process.env.DEFAULT_ADMIN_PASSWORD || 'admin123',
   seedDemo: String(process.env.SEED_DEMO || 'true').toLowerCase() !== 'false',
   nodeEnv: process.env.NODE_ENV || 'development',
+  trialEndsAt: parseTrialEnd(process.env.TRIAL_ENDS_AT),
+  licenseKey: (process.env.LICENSE_KEY || '').trim(),
+  supportContact: (process.env.SUPPORT_CONTACT || '').trim(),
 };
+
+// TRIAL_ENDS_AT acepta "2026-10-31" (vence al final de ese día, hora Argentina) o un ISO completo.
+function parseTrialEnd(value) {
+  const raw = (value || '').trim();
+  if (!raw) return null;
+  const iso = /^\d{4}-\d{2}-\d{2}$/.test(raw) ? `${raw}T23:59:59-03:00` : raw;
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) {
+    throw new Error(`TRIAL_ENDS_AT inválido: ${raw}`);
+  }
+  return date;
+}
 
 export function assertRuntimeConfig() {
   if (!config.databaseUrl) {

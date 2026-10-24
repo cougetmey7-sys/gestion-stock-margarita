@@ -29,6 +29,8 @@ INSERT INTO store_settings (id, name)
 VALUES (1, 'Mi comercio')
 ON CONFLICT (id) DO NOTHING;
 
+ALTER TABLE store_settings ADD COLUMN IF NOT EXISTS license_key_hash TEXT;
+
 CREATE TABLE IF NOT EXISTS categories (
   id SERIAL PRIMARY KEY,
   name TEXT NOT NULL UNIQUE,
