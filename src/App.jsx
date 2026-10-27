@@ -15,6 +15,8 @@ import PricesPage from './pages/PricesPage';
 import ImportExportPage from './pages/ImportExportPage';
 import MovementsPage from './pages/MovementsPage';
 import SettingsPage from './pages/SettingsPage';
+import AccountsPage from './pages/AccountsPage';
+import AccountStatementPage from './pages/AccountStatementPage';
 
 export default function App() {
   return (
@@ -38,6 +40,10 @@ export default function App() {
         <Route path="clientes/:id" element={<PartyDetailPage kind="customers" />} />
         <Route path="proveedores" element={<PartiesPage kind="suppliers" />} />
         <Route path="proveedores/:id" element={<PartyDetailPage kind="suppliers" />} />
+        <Route path="cuenta-clientes" element={<AccountsPage kind="customers" />} />
+        <Route path="cuenta-clientes/:id" element={<AccountStatementPage kind="customers" />} />
+        <Route path="cuenta-proveedores" element={<AccountsPage kind="suppliers" />} />
+        <Route path="cuenta-proveedores/:id" element={<AccountStatementPage kind="suppliers" />} />
         <Route path="ventas" element={<DocumentsPage kind="sales" />} />
         <Route path="ventas/nueva" element={<DocumentEditorPage kind="sales" />} />
         <Route path="ventas/:id" element={<DocumentEditorPage kind="sales" />} />

@@ -215,3 +215,7 @@ CREATE INDEX IF NOT EXISTS attachments_entity_idx ON attachments (entity_type, e
 ALTER TABLE stock_movements DROP CONSTRAINT IF EXISTS stock_movements_kind;
 ALTER TABLE stock_movements ADD CONSTRAINT stock_movements_kind
   CHECK (kind IN ('sale', 'purchase', 'adjustment', 'import', 'manual'));
+
+ALTER TABLE payments ADD COLUMN IF NOT EXISTS receipt_number TEXT;
+
+CREATE INDEX IF NOT EXISTS payments_receipt_idx ON payments (receipt_number);

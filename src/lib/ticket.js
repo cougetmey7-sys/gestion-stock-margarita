@@ -112,6 +112,10 @@ export function printTicket({
 </body>
 </html>`;
 
+  printHtml(html);
+}
+
+function printHtml(html) {
   const iframe = document.createElement('iframe');
   iframe.setAttribute('aria-hidden', 'true');
   iframe.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0;';
@@ -132,4 +136,57 @@ export function printTicket({
     win.focus();
     win.print();
   }, 50);
+}
+
+export function printStatement({ storeName, title, party, movements, opening, balance, currency, range }) {
+  const rows = movements
+    .map(
+      (row) => `<tr>
+        <td>${esc(row.date)}</td>
+        <td>${esc(row.concept)}</td>
+        <td class="r">${row.debit ? esc(money(row.debit, currency)) : ''}</td>
+        <td class="r">${row.credit ? esc(money(row.credit, currency)) : ''}</td>
+        <td class="r">${esc(money(row.balance, currency))}</td>
+      </tr>`
+    )
+    .join('');
+  const html = `<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>${esc(title)} ${esc(party.name)}</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, Segoe UI, sans-serif; margin: 0; color: #111; }
+    .page { padding: 18mm 14mm; }
+    h1 { font-size: 18px; margin: 0; }
+    .sub { color: #555; font-size: 12px; margin: 2px 0 14px; }
+    .party { display: flex; justify-content: space-between; gap: 16px; font-size: 13px; margin-bottom: 12px; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    th { text-align: left; border-bottom: 1.5px solid #111; padding: 6px 4px; }
+    td { border-bottom: 1px solid #ddd; padding: 5px 4px; }
+    .r { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .total { margin-top: 12px; text-align: right; font-size: 15px; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>${esc(storeName || '')}</h1>
+    <p class="sub">${esc(title)}${range ? ` · ${esc(range)}` : ''}</p>
+    <div class="party">
+      <div><b>${esc(party.name)}</b><br/>${esc(party.tax_id || '')} ${esc(party.phone || '')}</div>
+      <div>Emitido: ${esc(new Date().toLocaleDateString('es-AR'))}</div>
+    </div>
+    <table>
+      <thead><tr><th>Fecha</th><th>Concepto</th><th class="r">Debe</th><th class="r">Haber</th><th class="r">Saldo</th></tr></thead>
+      <tbody>
+        ${opening ? `<tr><td></td><td>Saldo anterior</td><td></td><td></td><td class="r">${esc(money(opening, currency))}</td></tr>` : ''}
+        ${rows}
+      </tbody>
+    </table>
+    <div class="total">Saldo: ${esc(money(balance, currency))}</div>
+  </div>
+</body>
+</html>`;
+  printHtml(html);
 }

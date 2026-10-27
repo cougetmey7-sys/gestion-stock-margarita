@@ -18,6 +18,7 @@ import ioRouter from './routes/io.js';
 import attachmentsRouter from './routes/attachments.js';
 import movementsRouter from './routes/movements.js';
 import licenseRouter from './routes/license.js';
+import { accountRouter } from './routes/accounts.js';
 import { requireLicense } from './lib/license.js';
 import { ensureUploadDir } from './lib/storage.js';
 
@@ -59,6 +60,8 @@ app.use('/api/dashboard', requireAuth, dashboardRouter);
 app.use('/api/products', requireAuth, productsRouter);
 app.use('/api/customers', requireAuth, partyRouter('customers'));
 app.use('/api/suppliers', requireAuth, partyRouter('suppliers'));
+app.use('/api/accounts/customers', requireAuth, accountRouter('customers'));
+app.use('/api/accounts/suppliers', requireAuth, accountRouter('suppliers'));
 app.use('/api/sales', requireAuth, salesRouter);
 app.use('/api/purchases', requireAuth, purchasesRouter);
 app.use('/api/payments', requireAuth, paymentsRouter);

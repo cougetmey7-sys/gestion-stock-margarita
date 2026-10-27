@@ -12,6 +12,7 @@ const COPY = {
     title: 'Cliente',
     listLabel: 'Clientes',
     back: '/clientes',
+    account: '/cuenta-clientes',
     docs: '/ventas',
     get: api.customer,
     save: api.saveCustomer,
@@ -23,6 +24,7 @@ const COPY = {
     title: 'Proveedor',
     listLabel: 'Proveedores',
     back: '/proveedores',
+    account: '/cuenta-proveedores',
     docs: '/compras',
     get: api.supplier,
     save: api.saveSupplier,
@@ -65,6 +67,9 @@ export default function PartyDetailPage({ kind }) {
             {party.tax_id || 'Sin CUIT'} · {party.phone || 'Sin teléfono'}
           </div>
         </div>
+        <Link className="pill-btn inline-flex items-center" to={`${meta.account}/${party.id}`}>
+          Cuenta corriente
+        </Link>
         <button className="pill-btn" onClick={() => setEditing(true)}>
           Editar
         </button>

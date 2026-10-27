@@ -88,6 +88,9 @@ export const api = {
   saveSupplier: (id, body) =>
     id ? request(`/api/suppliers/${id}`, { method: 'PUT', body }) : request('/api/suppliers', { method: 'POST', body }),
   deleteSupplier: (id) => request(`/api/suppliers/${id}`, { method: 'DELETE' }),
+  accounts: (kind, params = '') => request(`/api/accounts/${kind}${params}`),
+  account: (kind, id, params = '') => request(`/api/accounts/${kind}/${id}${params}`),
+  payAccount: (kind, id, body) => request(`/api/accounts/${kind}/${id}/payments`, { method: 'POST', body }),
   sales: (params = '') => request(`/api/sales${params}`),
   sale: (id) => request(`/api/sales/${id}`),
   saveSale: (id, body) =>
