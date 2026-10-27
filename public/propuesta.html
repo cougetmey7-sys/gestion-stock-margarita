@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="/favicon.png">
+<meta name="theme-color" content="#18160f">
+<meta property="og:title" content="Propuesta comercial · Margarita Polirrubro">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
+<title>Propuesta Margarita Polirrubro</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: documento comercial de una columna (max 880px), con la inversión como pieza central. */
+:root {
+  --ink: #18160f;
+  --paper: #fbfaf6;
+  --surface: #ffffff;
+  --muted: #5d5a50;
+  --line: #e6e2d6;
+  --petal: #f5c518;
+  --petal-soft: #fdf3c8;
+  --petal-ink: #6b4f00;
+  --night: #18160f;
+  --night-fg: #f6f3ea;
+  --night-muted: #b9b4a5;
+  --good: #1f7a45;
+  --font-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: #f3f0e6; --paper: #131210; --surface: #1c1a16; --muted: #b0aa9a; --line: #34312a;
+    --petal-soft: #3a3013; --petal-ink: #f7d65a; --night: #0b0a08; --good: #5fcf8c;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ink: #f3f0e6; --paper: #131210; --surface: #1c1a16; --muted: #b0aa9a; --line: #34312a;
+  --petal-soft: #3a3013; --petal-ink: #f7d65a; --night: #0b0a08; --good: #5fcf8c;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 880px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.12; letter-spacing: -0.015em; }
+h2 { font-size: clamp(26px, 4vw, 34px); font-weight: 800; }
+h3 { font-size: 19px; font-weight: 700; }
+p { margin: 0; }
+a { color: inherit; }
+a:focus-visible { outline: 3px solid var(--petal); outline-offset: 3px; }
+.eyebrow { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--petal-ink); }
+section { padding-block: 48px; border-top: 1px solid var(--line); }
+.section-head { display: grid; gap: 10px; margin-bottom: 28px; }
+.lead { font-size: 18px; color: var(--muted); max-width: 62ch; }
+
+.hero { background: var(--night); color: var(--night-fg); padding-block: 44px; }
+.hero .wrap { display: grid; gap: 18px; }
+.hero .eyebrow { color: var(--petal); }
+.hero h1 { font-size: clamp(34px, 6vw, 54px); font-weight: 800; }
+.hero h1 span { color: var(--petal); }
+.hero .lead { color: var(--night-muted); }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 14px; color: var(--night-muted); }
+.meta b { color: var(--night-fg); font-weight: 600; }
+
+.includes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 28px; list-style: none; margin: 0; padding: 0; }
+.includes li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; align-items: start; }
+.includes li::before { content: ""; width: 14px; height: 14px; margin-top: 6px; border-radius: 50%; background: var(--petal); box-shadow: inset 0 0 0 4px var(--petal-soft); }
+.includes b { display: block; font-weight: 600; }
+.includes span { color: var(--muted); font-size: 15px; }
+
+.price-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.price { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 26px; display: grid; gap: 10px; align-content: start; }
+.price.main { border: 2px solid var(--petal); }
+.price .label { font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.amount { font-family: var(--font-display); font-weight: 800; font-size: clamp(40px, 7vw, 56px); line-height: 1; font-variant-numeric: tabular-nums; }
+.amount small { font-size: 18px; font-weight: 600; color: var(--muted); margin-left: 4px; }
+.price p { color: var(--muted); font-size: 15px; }
+.offer { margin-top: 16px; background: var(--petal-soft); border-radius: 14px; padding: 16px 20px; display: grid; gap: 4px; }
+.offer b { color: var(--petal-ink); font-size: 17px; }
+.offer span { font-size: 15px; }
+
+.calc-wrap { overflow-x: auto; margin-top: 24px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+table.calc { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 460px; }
+.calc th, .calc td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--line); }
+.calc th { font-size: 13px; color: var(--muted); font-weight: 600; }
+.calc td.n, .calc th.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.calc tr:last-child td { border-bottom: 0; font-weight: 700; }
+.calc .free { color: var(--good); font-weight: 600; }
+
+.cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px; display: grid; gap: 10px; align-content: start; }
+.box ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; color: var(--muted); font-size: 15px; }
+
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; counter-reset: step; }
+.steps li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 14px; padding-block: 14px; border-top: 1px solid var(--line); counter-increment: step; }
+.steps li:first-child { border-top: 0; }
+.steps li::before { content: counter(step); font-family: var(--font-display); font-weight: 800; font-size: 26px; color: var(--petal-ink); line-height: 1.1; }
+.steps p { color: var(--muted); font-size: 15px; }
+
+.close { background: var(--night); color: var(--night-fg); border-top: 0; }
+.close .lead { color: var(--night-muted); }
+.close .eyebrow { color: var(--petal); }
+.contact { display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center; margin-top: 24px; }
+.btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border-radius: 999px; font-weight: 700; text-decoration: none; background: #25d366; color: #0b2a17; }
+.num { display: grid; gap: 2px; }
+.num span { font-size: 13px; color: var(--night-muted); }
+.num strong { font-family: var(--font-display); font-size: 26px; user-select: all; font-variant-numeric: tabular-nums; }
+.links { margin-top: 20px; font-size: 14px; color: var(--night-muted); }
+.links a { color: var(--petal); }
+footer { padding-block: 22px; font-size: 13px; color: var(--muted); }
+
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  section { padding-block: 40px; }
+  .includes, .price-grid, .cols { grid-template-columns: minmax(0, 1fr); }
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Propuesta comercial</p>
+    <h1>Sistema de gestión para <span>Margarita Polirrubro</span></h1>
+    <p class="lead">Stock, ventas, cuentas corrientes de clientes y proveedores, precios y reportes, hecho a medida para el local y con atención directa por WhatsApp.</p>
+    <div class="meta">
+      <span>Para: <b>dueños de Margarita Polirrubro</b></span>
+      <span>Fecha: <b>27/10/2026</b></span>
+      <span>Validez: <b>15 días</b></span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Qué incluye</p>
+        <h2>Un sistema propio, listo para usar</h2>
+        <p class="lead">Es el mismo sistema que están probando, con sus datos reales y todo lo que ya cargaron.</p>
+      </div>
+      <ul class="includes">
+        <li><div><b>Stock y productos</b><span>Categorías, código de barras, fotos, stock mínimo y alerta de faltantes.</span></div></li>
+        <li><div><b>Ventas con ticket</b><span>Cada venta descuenta el stock y se puede imprimir el comprobante.</span></div></li>
+        <li><div><b>Cuenta corriente de clientes</b><span>Fiado con saldo, antigüedad de la deuda, recibos y recordatorio por WhatsApp.</span></div></li>
+        <li><div><b>Cuenta corriente de proveedores</b><span>Compras, órdenes de pago y lo que se le debe a cada distribuidora.</span></div></li>
+        <li><div><b>Precios en masa</b><span>Aumentos por porcentaje o monto, por categoría, con vista previa e historial.</span></div></li>
+        <li><div><b>Reportes y Excel</b><span>Ventas del mes, cobros y pagos, y carga o descarga de planillas.</span></div></li>
+        <li><div><b>Con la marca del local</b><span>Logo, colores y datos de Margarita en todas las pantallas.</span></div></li>
+        <li><div><b>En cualquier dispositivo</b><span>Celular, tablet o computadora, sin instalar nada.</span></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Inversión</p>
+        <h2>Precio claro, sin sorpresas</h2>
+      </div>
+      <div class="price-grid">
+        <div class="price main">
+          <span class="label">Implementación · pago único</span>
+          <div class="amount">USD 1.000</div>
+          <p>Sistema personalizado con la marca del local, carga inicial de productos, clientes y proveedores desde sus planillas, puesta en marcha y capacitación.</p>
+        </div>
+        <div class="price">
+          <span class="label">Abono mensual</span>
+          <div class="amount">USD 200<small>/mes</small></div>
+          <p>Servidor y base de datos en la nube, mantenimiento, actualizaciones, ajustes menores y soporte directo por WhatsApp.</p>
+        </div>
+      </div>
+      <div class="offer">
+        <b>Primer mes de abono bonificado</b>
+        <span>Al contratar, el primer mes no se paga. El abono empieza a cobrarse desde el segundo mes.</span>
+      </div>
+      <div class="calc-wrap">
+        <table class="calc">
+          <thead>
+            <tr><th>Concepto</th><th class="n">Primer año</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Implementación (pago único)</td><td class="n">USD 1.000</td></tr>
+            <tr><td>Abono del mes 1</td><td class="n free">Bonificado</td></tr>
+            <tr><td>Abono de los meses 2 a 12 (11 × USD 200)</td><td class="n">USD 2.200</td></tr>
+            <tr><td>Total del primer año</td><td class="n">USD 3.200</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="cols">
+        <div class="box">
+          <h3>El abono cubre</h3>
+          <ul>
+            <li>El servidor y la base de datos donde se guarda la información.</li>
+            <li>Arreglos y actualizaciones del sistema.</li>
+            <li>Ajustes menores: textos, categorías, cambios de diseño.</li>
+            <li>Consultas y ayuda por WhatsApp.</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>No incluye</h3>
+          <ul>
+            <li>Factura electrónica de ARCA: se sigue emitiendo aparte.</li>
+            <li>Funciones nuevas grandes: se presupuestan por separado.</li>
+            <li>Equipos (celular, computadora, impresora, lector de códigos).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Condiciones</p>
+        <h2>Cómo se paga</h2>
+      </div>
+      <div class="cols">
+        <div class="box">
+          <h3>Implementación</h3>
+          <ul>
+            <li>Se abona al aceptar la propuesta.</li>
+            <li>Al acreditarse, se entrega el código de activación.</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Abono</h3>
+          <ul>
+            <li>Mes a mes, del 1 al 10 de cada mes.</li>
+            <li>Sin permanencia mínima: se puede dar de baja avisando con 30 días.</li>
+            <li>Si se da de baja, se entregan los datos en Excel.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="lead" style="margin-top: 20px; font-size: 15px">Los importes en dólares pueden abonarse en pesos al tipo de cambio oficial vendedor del Banco Nación del día de pago.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Próximos pasos</p>
+        <h2>De la prueba al sistema definitivo</h2>
+      </div>
+      <ol class="steps">
+        <li><div><h3>Aceptan la propuesta</h3><p>Me avisan por WhatsApp y coordinamos el pago de la implementación.</p></div></li>
+        <li><div><h3>Activación</h3><p>Les paso el código y el sistema sigue funcionando con todo lo que cargaron en la prueba.</p></div></li>
+        <li><div><h3>Puesta en marcha</h3><p>Cargamos sus listas de productos, clientes y proveedores, y les muestro cómo usar cada parte.</p></div></li>
+        <li><div><h3>Acompañamiento</h3><p>Durante el primer mes, bonificado, ajustamos lo que haga falta para que el sistema quede a su medida.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="close">
+    <div class="wrap">
+      <p class="eyebrow">Contacto</p>
+      <h2 style="margin-top: 10px">¿Lo charlamos?</h2>
+      <p class="lead" style="margin-top: 12px">Cualquier duda sobre la propuesta, escríbanme y la vemos juntos.</p>
+      <div class="contact">
+        <a class="btn" href="https://wa.me/5493541600329?text=Hola%2C%20le%C3%AD%20la%20propuesta%20del%20sistema%20para%20Margarita%20Polirrubro." target="_blank" rel="noopener">Responder por WhatsApp</a>
+        <div class="num"><span>WhatsApp</span><strong>3541 600329</strong></div>
+      </div>
+      <p class="links">Recorrido del sistema: <a href="https://stock-production-8a90.up.railway.app/presentacion" target="_blank" rel="noopener">stock-production-8a90.up.railway.app/presentacion</a></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Propuesta válida por 15 días desde el 27/10/2026.</div>
+</footer>
+</body>
+</html>
