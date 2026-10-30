@@ -91,6 +91,13 @@ export const api = {
   accounts: (kind, params = '') => request(`/api/accounts/${kind}${params}`),
   account: (kind, id, params = '') => request(`/api/accounts/${kind}/${id}${params}`),
   payAccount: (kind, id, body) => request(`/api/accounts/${kind}/${id}/payments`, { method: 'POST', body }),
+  expenses: () => request('/api/expenses'),
+  expenseSchedule: (month) => request(`/api/expenses/schedule?month=${month}`),
+  saveExpense: (id, body) =>
+    id ? request(`/api/expenses/${id}`, { method: 'PUT', body }) : request('/api/expenses', { method: 'POST', body }),
+  deleteExpense: (id) => request(`/api/expenses/${id}`, { method: 'DELETE' }),
+  payExpense: (id, body) => request(`/api/expenses/${id}/payments`, { method: 'POST', body }),
+  deleteExpensePayment: (paymentId) => request(`/api/expenses/payments/${paymentId}`, { method: 'DELETE' }),
   sales: (params = '') => request(`/api/sales${params}`),
   sale: (id) => request(`/api/sales/${id}`),
   saveSale: (id, body) =>

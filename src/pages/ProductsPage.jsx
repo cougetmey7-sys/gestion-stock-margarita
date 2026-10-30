@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { api, attachmentFileUrl } from '../api';
+import { api } from '../api';
 import ConfirmDangerModal from '../components/ConfirmDangerModal';
 import ProductForm, { emptyProduct, toProductForm } from '../components/ProductForm';
 import StockAdjustModal from '../components/StockAdjustModal';
@@ -111,25 +111,10 @@ export default function ProductsPage() {
             {rows.map((row) => (
               <tr key={row.id}>
                 <td>
-                  <div className="flex items-center gap-3">
-                    {row.photo_id ? (
-                      <img
-                        src={attachmentFileUrl(row.photo_id)}
-                        alt=""
-                        className="h-11 w-11 shrink-0 rounded-lg border border-[#dadce0] object-cover"
-                      />
-                    ) : (
-                      <div className="grid h-11 w-11 shrink-0 place-items-center rounded-lg border border-dashed border-[#dadce0] text-xs text-[#70757a]">
-                        Foto
-                      </div>
-                    )}
-                    <div>
-                      <Link className="font-medium text-[#8a5a00]" to={`/productos/${row.id}`}>
-                        {row.name}
-                      </Link>
-                      <div className="text-xs text-[#70757a]">{row.sku}</div>
-                    </div>
-                  </div>
+                  <Link className="font-medium text-[#8a5a00]" to={`/productos/${row.id}`}>
+                    {row.name}
+                  </Link>
+                  <div className="text-xs text-[#70757a]">{row.sku}</div>
                 </td>
                 <td>{row.category_name || '—'}</td>
                 <td>

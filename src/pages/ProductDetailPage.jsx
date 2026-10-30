@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { api } from '../api';
-import AttachmentsPanel from '../components/AttachmentsPanel';
 import ConfirmDangerModal from '../components/ConfirmDangerModal';
 import ProductForm, { toProductForm } from '../components/ProductForm';
 import StockAdjustModal from '../components/StockAdjustModal';
@@ -70,15 +69,6 @@ export default function ProductDetailPage() {
           <div className="kpi-value">{money(product.sale_price, currency)}</div>
         </div>
       </div>
-      <AttachmentsPanel
-        title="Fotos"
-        entityType="product"
-        entityId={product.id}
-        items={product.attachments || []}
-        accept="image/jpeg,image/png,image/webp,image/gif,image/heic,.jpg,.jpeg,.png,.webp,.gif,.heic"
-        helper="Podés subir varias fotos del producto (hasta 12 MB cada una)."
-        onChanged={load}
-      />
       <div className="mb-3 flex flex-wrap items-center gap-3">
         <h2 className="mr-auto text-lg font-medium">Historial de stock</h2>
         <Link className="text-sm text-[#8a5a00]" to={`/movimientos?productId=${product.id}`}>

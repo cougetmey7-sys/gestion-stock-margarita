@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import {
   Boxes,
+  CalendarClock,
   FileSpreadsheet,
   HandCoins,
   History,
@@ -36,6 +37,7 @@ export const NAV = [
   { to: '/ventas', label: 'Ventas', icon: ShoppingCart },
   { to: '/compras', label: 'Compras', icon: PackagePlus },
   { to: '/pagos', label: 'Pagos', icon: Wallet },
+  { to: '/gastos-fijos', label: 'Gastos fijos', icon: CalendarClock },
   { to: '/precios', label: 'Precios', icon: Percent },
   { to: '/importar', label: 'CSV / Excel', icon: FileSpreadsheet },
   { to: '/configuracion', label: 'Configuración', icon: Settings },

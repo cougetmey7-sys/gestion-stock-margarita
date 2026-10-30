@@ -11,6 +11,7 @@ const SECTIONS = [
   { test: (path) => path.startsWith('/ventas'), to: '/ventas', label: 'Ventas' },
   { test: (path) => path.startsWith('/compras'), to: '/compras', label: 'Compras' },
   { test: (path) => path.startsWith('/pagos'), to: '/pagos', label: 'Pagos' },
+  { test: (path) => path.startsWith('/gastos-fijos'), to: '/gastos-fijos', label: 'Gastos fijos' },
   { test: (path) => path.startsWith('/precios'), to: '/precios', label: 'Precios' },
   { test: (path) => path.startsWith('/importar'), to: '/importar', label: 'CSV / Excel' },
   { test: (path) => path.startsWith('/configuracion'), to: '/configuracion', label: 'Configuración' },

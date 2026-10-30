@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { query } from '../db/pool.js';
+import { schedule, storeToday } from '../lib/expenses.js';
 
 const router = Router();
 
@@ -38,8 +39,12 @@ router.get('/', async (_req, res, next) => {
       ),
     ]);
 
+    const expenses = await schedule(storeToday().slice(0, 7));
+    const upcoming = [...expenses.overdue, ...expenses.items.filter((row) => !row.payment)].slice(0, 6);
+
     res.json({
       data: {
+        expenses: { totals: expenses.totals, upcoming },
         salesMonth: sales.rows[0],
         purchasesMonth: purchases.rows[0],
         stock: stock.rows[0],

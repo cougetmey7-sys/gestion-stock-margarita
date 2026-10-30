@@ -4,6 +4,7 @@ import { api } from '../api';
 import { money } from '../format';
 import { useStore } from '../store';
 import StatusBadge from '../components/StatusBadge';
+import { ExpenseStatus } from './ExpensesPage';
 
 export default function DashboardPage() {
   const { currency } = useStore();
@@ -28,7 +29,48 @@ export default function DashboardPage() {
             <Kpi label="Stock a costo" value={money(data.stock.cost_value, currency)} hint={`A venta ${money(data.stock.sale_value, currency)}`} />
             <Kpi label="Por cobrar" value={money(data.receivable, currency)} hint="Saldo de clientes" />
             <Kpi label="Por pagar" value={money(data.payable, currency)} hint="Saldo a proveedores" />
+            {data.expenses.totals.month > 0 && (
+              <Kpi
+                label="Gastos fijos del mes"
+                value={money(data.expenses.totals.month, currency)}
+                hint={`Falta pagar ${money(data.expenses.totals.pending, currency)}`}
+              />
+            )}
           </div>
+          {data.expenses.upcoming.length > 0 && (
+            <section className="mb-6">
+              <div className="mb-3 flex items-center justify-between">
+                <h2 className="text-lg font-medium">Gastos fijos a pagar</h2>
+                <Link className="text-sm text-[#8a5a00]" to="/gastos-fijos">
+                  Ver vencimientos
+                </Link>
+              </div>
+              <div className="overflow-x-auto rounded-xl border border-[#dadce0]">
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Vence</th>
+                      <th>Gasto</th>
+                      <th>Estado</th>
+                      <th className="text-right">Importe</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data.expenses.upcoming.map((row) => (
+                      <tr key={`${row.expenseId}-${row.period}`}>
+                        <td className="whitespace-nowrap tabular-nums">{row.due}</td>
+                        <td>{row.name}</td>
+                        <td>
+                          <ExpenseStatus status={row.status} />
+                        </td>
+                        <td className="text-right tabular-nums">{money(row.amount, currency)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          )}
           <section>
               <div className="mb-3 flex items-center justify-between">
                 <h2 className="text-lg font-medium">Últimas ventas</h2>

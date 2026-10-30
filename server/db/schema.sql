@@ -219,3 +219,33 @@ ALTER TABLE stock_movements ADD CONSTRAINT stock_movements_kind
 ALTER TABLE payments ADD COLUMN IF NOT EXISTS receipt_number TEXT;
 
 CREATE INDEX IF NOT EXISTS payments_receipt_idx ON payments (receipt_number);
+
+CREATE TABLE IF NOT EXISTS fixed_expenses (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  category TEXT,
+  payee TEXT,
+  amount NUMERIC(14,2) NOT NULL DEFAULT 0,
+  frequency TEXT NOT NULL DEFAULT 'monthly',
+  due_day INT NOT NULL DEFAULT 10,
+  start_month DATE NOT NULL DEFAULT date_trunc('month', CURRENT_DATE),
+  notes TEXT,
+  active BOOLEAN NOT NULL DEFAULT true,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  CONSTRAINT fixed_expenses_frequency CHECK (frequency IN ('monthly', 'bimonthly', 'quarterly', 'yearly')),
+  CONSTRAINT fixed_expenses_due_day CHECK (due_day BETWEEN 1 AND 31)
+);
+
+CREATE TABLE IF NOT EXISTS fixed_expense_payments (
+  id SERIAL PRIMARY KEY,
+  expense_id INT NOT NULL REFERENCES fixed_expenses(id) ON DELETE CASCADE,
+  period DATE NOT NULL,
+  amount NUMERIC(14,2) NOT NULL,
+  paid_at DATE NOT NULL DEFAULT CURRENT_DATE,
+  method TEXT NOT NULL DEFAULT 'cash',
+  notes TEXT,
+  created_by INT REFERENCES users(id) ON DELETE SET NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  CONSTRAINT fixed_expense_payments_amount CHECK (amount > 0),
+  CONSTRAINT fixed_expense_payments_period UNIQUE (expense_id, period)
+);
