@@ -79,6 +79,14 @@ section { padding-block: 48px; border-top: 1px solid var(--line); }
 .amount { font-family: var(--font-display); font-weight: 800; font-size: clamp(40px, 7vw, 56px); line-height: 1; font-variant-numeric: tabular-nums; }
 .amount small { font-size: 18px; font-weight: 600; color: var(--muted); margin-left: 4px; }
 .price p { color: var(--muted); font-size: 15px; }
+.was { font-size: 15px; color: var(--muted); }
+.was s { text-decoration-thickness: 2px; }
+.tag { justify-self: start; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; padding: 4px 10px; border-radius: 999px; background: var(--petal); color: #18160f; }
+.save { color: var(--good); font-weight: 600; font-size: 15px; }
+.cond { margin-top: 16px; border: 1.5px dashed var(--petal-ink); border-radius: 14px; padding: 18px 20px; display: grid; gap: 6px; }
+.cond b { font-size: 17px; }
+.cond span { font-size: 15px; color: var(--muted); }
+.calc .strike { color: var(--muted); text-decoration: line-through; }
 .offer { margin-top: 16px; background: var(--petal-soft); border-radius: 14px; padding: 16px 20px; display: grid; gap: 4px; }
 .offer b { color: var(--petal-ink); font-size: 17px; }
 .offer span { font-size: 15px; }
@@ -127,8 +135,8 @@ footer { padding-block: 22px; font-size: 13px; color: var(--muted); }
     <h1>Sistema de gestión para <span>Margarita Polirrubro</span></h1>
     <p class="lead">Stock, ventas, cuentas corrientes de clientes y proveedores, precios y reportes, hecho a medida para el local y con atención directa por WhatsApp.</p>
     <div class="meta">
-      <span>Para: <b>dueños de Margarita Polirrubro</b></span>
-      <span>Fecha: <b>27/10/2026</b></span>
+      <span>Para: <b>Fede · Margarita Polirrubro</b></span>
+      <span>Fecha: <b>30/10/2026</b></span>
       <span>Validez: <b>15 días</b></span>
     </div>
   </div>
@@ -148,6 +156,7 @@ footer { padding-block: 22px; font-size: 13px; color: var(--muted); }
         <li><div><b>Cuenta corriente de clientes</b><span>Fiado con saldo, antigüedad de la deuda, recibos y recordatorio por WhatsApp.</span></div></li>
         <li><div><b>Cuenta corriente de proveedores</b><span>Compras, órdenes de pago y lo que se le debe a cada distribuidora.</span></div></li>
         <li><div><b>Precios en masa</b><span>Aumentos por porcentaje o monto, por categoría, con vista previa e historial.</span></div></li>
+        <li><div><b>Gastos fijos</b><span>Alquiler, servicios e impuestos con su vencimiento, y aviso de lo que falta pagar.</span></div></li>
         <li><div><b>Reportes y Excel</b><span>Ventas del mes, cobros y pagos, y carga o descarga de planillas.</span></div></li>
         <li><div><b>Con la marca del local</b><span>Logo, colores y datos de Margarita en todas las pantallas.</span></div></li>
         <li><div><b>En cualquier dispositivo</b><span>Celular, tablet o computadora, sin instalar nada.</span></div></li>
@@ -163,33 +172,39 @@ footer { padding-block: 22px; font-size: 13px; color: var(--muted); }
       </div>
       <div class="price-grid">
         <div class="price main">
+          <span class="tag">Precio especial La Incu</span>
           <span class="label">Implementación · pago único</span>
-          <div class="amount">USD 1.000</div>
+          <div class="was">Precio de lista <s>USD 2.000</s></div>
+          <div class="amount">USD 900</div>
+          <div class="save">Ahorrás USD 1.100</div>
           <p>Sistema personalizado con la marca del local, carga inicial de productos, clientes y proveedores desde sus planillas, puesta en marcha y capacitación.</p>
         </div>
         <div class="price">
+          <span class="tag">Precio por recomendación</span>
           <span class="label">Abono mensual</span>
-          <div class="amount">USD 200<small>/mes</small></div>
+          <div class="was">Precio de lista <s>USD 300/mes</s></div>
+          <div class="amount">USD 100<small>/mes</small></div>
+          <div class="save">Ahorrás USD 200 por mes</div>
           <p>Servidor y base de datos en la nube, mantenimiento, actualizaciones, ajustes menores y soporte directo por WhatsApp.</p>
         </div>
       </div>
-      <div class="offer">
-        <b>Primer mes de abono bonificado</b>
-        <span>Al contratar, el primer mes no se paga. El abono empieza a cobrarse desde el segundo mes.</span>
+      <div class="cond">
+        <b>Condición del abono de USD 100</b>
+        <span>Recomendar el servicio y presentar al menos dos clientes nuevos que lo contraten.</span>
       </div>
       <div class="calc-wrap">
         <table class="calc">
           <thead>
-            <tr><th>Concepto</th><th class="n">Primer año</th></tr>
+            <tr><th>Primer año</th><th class="n">Precio de lista</th><th class="n">Precio para vos</th></tr>
           </thead>
           <tbody>
-            <tr><td>Implementación (pago único)</td><td class="n">USD 1.000</td></tr>
-            <tr><td>Abono del mes 1</td><td class="n free">Bonificado</td></tr>
-            <tr><td>Abono de los meses 2 a 12 (11 × USD 200)</td><td class="n">USD 2.200</td></tr>
-            <tr><td>Total del primer año</td><td class="n">USD 3.200</td></tr>
+            <tr><td>Implementación (pago único)</td><td class="n strike">USD 2.000</td><td class="n">USD 900</td></tr>
+            <tr><td>Abono (12 meses)</td><td class="n strike">USD 3.600</td><td class="n">USD 1.200</td></tr>
+            <tr><td>Total del primer año</td><td class="n strike">USD 5.600</td><td class="n">USD 2.100</td></tr>
           </tbody>
         </table>
       </div>
+      <p class="save" style="margin-top: 14px">En el primer año ahorrás USD 3.500 frente al precio de lista.</p>
     </div>
   </section>
 
@@ -254,7 +269,7 @@ footer { padding-block: 22px; font-size: 13px; color: var(--muted); }
         <li><div><h3>Aceptan la propuesta</h3><p>Me avisan por WhatsApp y coordinamos el pago de la implementación.</p></div></li>
         <li><div><h3>Activación</h3><p>Les paso el código y el sistema sigue funcionando con todo lo que cargaron en la prueba.</p></div></li>
         <li><div><h3>Puesta en marcha</h3><p>Cargamos sus listas de productos, clientes y proveedores, y les muestro cómo usar cada parte.</p></div></li>
-        <li><div><h3>Acompañamiento</h3><p>Durante el primer mes, bonificado, ajustamos lo que haga falta para que el sistema quede a su medida.</p></div></li>
+        <li><div><h3>Acompañamiento</h3><p>Durante el primer mes ajustamos lo que haga falta para que el sistema quede a su medida.</p></div></li>
       </ol>
     </div>
   </section>
@@ -262,8 +277,8 @@ footer { padding-block: 22px; font-size: 13px; color: var(--muted); }
   <section class="close">
     <div class="wrap">
       <p class="eyebrow">Contacto</p>
-      <h2 style="margin-top: 10px">¿Lo charlamos?</h2>
-      <p class="lead" style="margin-top: 12px">Cualquier duda sobre la propuesta, escríbanme y la vemos juntos.</p>
+      <h2 style="margin-top: 10px">¿Arrancamos, Fede?</h2>
+      <p class="lead" style="margin-top: 12px">Si te cierra, respondeme por WhatsApp y coordinamos la activación. Cualquier duda la vemos juntos.</p>
       <div class="contact">
         <a class="btn" href="https://wa.me/5493541600329?text=Hola%2C%20le%C3%AD%20la%20propuesta%20del%20sistema%20para%20Margarita%20Polirrubro." target="_blank" rel="noopener">Responder por WhatsApp</a>
         <div class="num"><span>WhatsApp</span><strong>3541 600329</strong></div>
@@ -274,7 +289,7 @@ footer { padding-block: 22px; font-size: 13px; color: var(--muted); }
 </main>
 
 <footer>
-  <div class="wrap">Propuesta válida por 15 días desde el 27/10/2026.</div>
+  <div class="wrap">Propuesta válida por 15 días desde el 30/10/2026.</div>
 </footer>
 </body>
 </html>
