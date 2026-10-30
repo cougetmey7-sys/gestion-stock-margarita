@@ -58,4 +58,61 @@ router.get('/', async (_req, res, next) => {
   }
 });
 
+const PERIODS = {
+  day: { unit: 'day', step: '1 day', count: 14 },
+  week: { unit: 'week', step: '1 week', count: 12 },
+  month: { unit: 'month', step: '1 month', count: 12 },
+};
+
+// Ventas confirmadas por día, semana o mes, con el período actual, el anterior y lo más vendido.
+router.get('/sales', async (req, res, next) => {
+  try {
+    const period = PERIODS[req.query.period] ? req.query.period : 'day';
+    const { unit, step, count } = PERIODS[period];
+    const today = storeToday();
+    const buckets = await query(
+      `WITH b AS (
+         SELECT generate_series(
+           date_trunc('${unit}', $1::date) - interval '${step}' * ${count - 1},
+           date_trunc('${unit}', $1::date),
+           interval '${step}'
+         )::date AS start
+       )
+       SELECT to_char(b.start, 'YYYY-MM-DD') AS start,
+              COALESCE(SUM(s.total), 0)::numeric AS total,
+              COUNT(s.id)::int AS count
+       FROM b
+       LEFT JOIN sales s ON s.status = 'confirmed' AND date_trunc('${unit}', s.issued_at)::date = b.start
+       GROUP BY b.start
+       ORDER BY b.start`,
+      [today]
+    );
+    const rows = buckets.rows.map((row) => ({ ...row, total: Number(row.total) }));
+    const current = rows[rows.length - 1];
+    const previous = rows[rows.length - 2];
+    const top = await query(
+      `SELECT si.description AS name, SUM(si.qty)::numeric AS qty, SUM(si.line_total)::numeric AS total
+       FROM sale_items si
+       JOIN sales s ON s.id = si.sale_id
+       WHERE s.status = 'confirmed' AND date_trunc('${unit}', s.issued_at)::date = $1::date
+       GROUP BY si.description
+       ORDER BY SUM(si.line_total) DESC
+       LIMIT 5`,
+      [current.start]
+    );
+    res.json({
+      data: {
+        period,
+        today,
+        buckets: rows,
+        current: { ...current, average: current.count ? current.total / current.count : 0 },
+        previous,
+        top: top.rows.map((row) => ({ ...row, qty: Number(row.qty), total: Number(row.total) })),
+      },
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
 export default router;

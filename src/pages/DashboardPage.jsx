@@ -5,6 +5,7 @@ import { money } from '../format';
 import { useStore } from '../store';
 import StatusBadge from '../components/StatusBadge';
 import { ExpenseStatus } from './ExpensesPage';
+import SalesPanel from '../components/SalesPanel';
 
 export default function DashboardPage() {
   const { currency } = useStore();
@@ -23,6 +24,7 @@ export default function DashboardPage() {
       {error && <div className="mb-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{error}</div>}
       {data && (
         <>
+          <SalesPanel currency={currency} />
           <div className="mb-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
             <Kpi label="Ventas del mes" value={money(data.salesMonth.total, currency)} hint={`${data.salesMonth.count} comprobantes`} />
             <Kpi label="Compras del mes" value={money(data.purchasesMonth.total, currency)} hint={`${data.purchasesMonth.count} comprobantes`} />

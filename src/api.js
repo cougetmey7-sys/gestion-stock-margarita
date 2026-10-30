@@ -69,6 +69,7 @@ export const api = {
   settings: () => request('/api/settings'),
   saveSettings: (body) => request('/api/settings', { method: 'PUT', body }),
   dashboard: () => request('/api/dashboard'),
+  salesReport: (period) => request(`/api/dashboard/sales?period=${period}`),
   products: (params = '') => request(`/api/products${params}`),
   product: (id) => request(`/api/products/${id}`),
   saveProduct: (id, body) =>
