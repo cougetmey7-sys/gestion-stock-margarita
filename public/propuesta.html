@@ -91,6 +91,9 @@ section { padding-block: 48px; border-top: 1px solid var(--line); }
 .plan .big small { font-size: 16px; font-weight: 600; color: var(--muted); }
 .plan p { font-size: 15px; color: var(--muted); }
 .plan .tot { font-size: 14px; font-weight: 600; color: var(--ink); }
+.plan .month { margin-top: 8px; padding-top: 12px; border-top: 1px solid var(--line); display: grid; gap: 4px; font-size: 14px; }
+.plan .month div { display: flex; justify-content: space-between; gap: 12px; }
+.plan .month b { font-variant-numeric: tabular-nums; white-space: nowrap; }
 .cond { margin-top: 16px; border: 1.5px dashed var(--petal-ink); border-radius: 14px; padding: 18px 20px; display: grid; gap: 6px; }
 .cond b { font-size: 17px; }
 .cond span { font-size: 15px; color: var(--muted); }
@@ -248,7 +251,7 @@ footer { padding-block: 22px; font-size: 13px; color: var(--muted); }
       <div class="section-head">
         <p class="eyebrow">Condiciones</p>
         <h2>Cómo se paga</h2>
-        <p class="lead">La implementación se puede pagar de tres formas. Elegí la que mejor te quede.</p>
+        <p class="lead">La implementación se puede pagar de tres formas. Elegí la que mejor te quede. El abono de USD 100 se paga todos los meses, sumado a la cuota del plan que elijas.</p>
       </div>
       <div class="plans">
         <div class="plan">
@@ -256,18 +259,30 @@ footer { padding-block: 22px; font-size: 13px; color: var(--muted); }
           <div class="big">USD 900</div>
           <p>Un solo pago al aceptar la propuesta.</p>
           <span class="tot">Total USD 900</span>
+          <div class="month">
+            <div><span>Al aceptar (pago + abono)</span><b>USD 1.000</b></div>
+            <div><span>Desde el mes 2</span><b>USD 100/mes</b></div>
+          </div>
         </div>
         <div class="plan pick">
           <span class="label">3 cuotas sin interés</span>
           <div class="big">3 × USD 300</div>
           <p>La primera al aceptar, la segunda a los 30 días y la tercera a los 60 días.</p>
           <span class="tot">Total USD 900</span>
+          <div class="month">
+            <div><span>Meses 1 a 3 (cuota + abono)</span><b>USD 400/mes</b></div>
+            <div><span>Desde el mes 4</span><b>USD 100/mes</b></div>
+          </div>
         </div>
         <div class="plan">
           <span class="label">6 cuotas</span>
           <div class="big">6 × USD 165</div>
           <p>La primera al aceptar y las demás mes a mes. Incluye un 10 % de recargo por financiación.</p>
           <span class="tot">Total USD 990</span>
+          <div class="month">
+            <div><span>Meses 1 a 6 (cuota + abono)</span><b>USD 265/mes</b></div>
+            <div><span>Desde el mes 7</span><b>USD 100/mes</b></div>
+          </div>
         </div>
       </div>
       <div class="cols">
