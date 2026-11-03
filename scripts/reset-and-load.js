@@ -1,8 +1,13 @@
 // Puesta en marcha de un comercio: borra los datos de ejemplo y carga el catálogo real.
 // Corre una sola vez por RESET_TOKEN (queda registrado en maintenance_runs) y solo si
-// RESET_CONFIRM=borrar-datos. El catálogo llega en INITIAL_PRODUCTS_B64: una lista JSON
-// de productos ({ sku, name, category, unit, cost_price, sale_price, description, ... })
-// comprimida con gzip y codificada en base64.
+// RESET_CONFIRM=borrar-datos. El catálogo es una lista JSON de productos
+// ({ sku, name, category, unit, cost_price, sale_price, description, ... }) comprimida con
+// gzip y cifrada con AES-256-GCM en scripts/data/catalogo-inicial.enc; la clave va en
+// INITIAL_PRODUCTS_KEY, así los costos del comercio no quedan legibles en el repositorio.
+import crypto from 'crypto';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import zlib from 'zlib';
 import { config } from '../server/config.js';
 import { getPool, withTransaction } from '../server/db/pool.js';
@@ -26,6 +31,17 @@ const TABLES = [
   'suppliers',
 ];
 
+const CATALOG_FILE = path.join(path.dirname(fileURLToPath(import.meta.url)), 'data', 'catalogo-inicial.enc');
+
+function readCatalog(keyHex) {
+  if (!keyHex) return [];
+  const raw = Buffer.from(fs.readFileSync(CATALOG_FILE, 'utf8'), 'base64');
+  const decipher = crypto.createDecipheriv('aes-256-gcm', Buffer.from(keyHex, 'hex'), raw.subarray(0, 12));
+  decipher.setAuthTag(raw.subarray(12, 28));
+  const gz = Buffer.concat([decipher.update(raw.subarray(28)), decipher.final()]);
+  return JSON.parse(zlib.gunzipSync(gz).toString('utf8'));
+}
+
 function parseSuppliers(raw) {
   if (!raw) return [];
   return JSON.parse(raw);
@@ -37,8 +53,7 @@ async function run() {
     console.log('reset: omitido (falta RESET_CONFIRM o RESET_TOKEN)');
     return;
   }
-  const encoded = process.env.INITIAL_PRODUCTS_B64 || '';
-  const rows = encoded ? JSON.parse(zlib.gunzipSync(Buffer.from(encoded, 'base64')).toString('utf8')) : [];
+  const rows = readCatalog((process.env.INITIAL_PRODUCTS_KEY || '').trim());
 
   await withTransaction(async (client) => {
     await client.query(
