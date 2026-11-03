@@ -63,6 +63,65 @@ export default function SettingsPage() {
           {saved ? 'Guardado' : 'Guardar'}
         </button>
       </form>
+      <PasswordForm />
     </div>
+  );
+}
+
+function PasswordForm() {
+  const empty = { currentPassword: '', newPassword: '', repeat: '' };
+  const [state, setState] = useState(empty);
+  const [error, setError] = useState('');
+  const [done, setDone] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const set = (key) => (e) => setState({ ...state, [key]: e.target.value });
+
+  return (
+    <form
+      className="mt-10 max-w-xl space-y-4 border-t border-[#dadce0] pt-6"
+      onSubmit={async (ev) => {
+        ev.preventDefault();
+        setError('');
+        setDone(false);
+        if (state.newPassword !== state.repeat) {
+          setError('Las dos contraseñas nuevas no coinciden');
+          return;
+        }
+        setBusy(true);
+        try {
+          await api.changePassword({ currentPassword: state.currentPassword, newPassword: state.newPassword });
+          setState(empty);
+          setDone(true);
+        } catch (err) {
+          setError(err.message);
+        } finally {
+          setBusy(false);
+        }
+      }}
+    >
+      <div>
+        <h2 className="text-lg font-medium">Cambiar contraseña</h2>
+        <p className="text-sm text-[#70757a]">Elegí una contraseña de al menos 6 caracteres. Se cierra la sesión en los otros dispositivos.</p>
+      </div>
+      {error && <div className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{error}</div>}
+      {done && <div className="rounded-lg bg-[#e6f4ea] px-3 py-2 text-sm text-[#137333]">Listo, la contraseña se cambió.</div>}
+      <label className="field">
+        <span>Contraseña actual</span>
+        <input id="pw-current" type="password" autoComplete="current-password" value={state.currentPassword} onChange={set('currentPassword')} required />
+      </label>
+      <div className="grid gap-3 sm:grid-cols-2">
+        <label className="field">
+          <span>Contraseña nueva</span>
+          <input id="pw-new" type="password" autoComplete="new-password" minLength={6} value={state.newPassword} onChange={set('newPassword')} required />
+        </label>
+        <label className="field">
+          <span>Repetir contraseña nueva</span>
+          <input id="pw-repeat" type="password" autoComplete="new-password" minLength={6} value={state.repeat} onChange={set('repeat')} required />
+        </label>
+      </div>
+      <button className="pill-btn primary" type="submit" disabled={busy}>
+        Cambiar contraseña
+      </button>
+    </form>
   );
 }
