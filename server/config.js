@@ -21,6 +21,8 @@ export const config = {
   trialEndsAt: parseTrialEnd(process.env.TRIAL_ENDS_AT),
   licenseKey: (process.env.LICENSE_KEY || '').trim(),
   supportContact: (process.env.SUPPORT_CONTACT || '').trim(),
+  supportUser: (process.env.SUPPORT_USER || '').trim(),
+  supportPassword: process.env.SUPPORT_PASSWORD || '',
 };
 
 // TRIAL_ENDS_AT acepta "2026-10-31" (vence al final de ese día, hora Argentina) o un ISO completo.

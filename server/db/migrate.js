@@ -34,6 +34,24 @@ async function ensureAdmin() {
   console.log(`OK: admin creado (${config.defaultAdminUser})`);
 }
 
+// Usuario de soporte de quien instaló el sistema: se crea una vez y no se toca después,
+// así el comercio puede cambiar su propia contraseña sin dejar sin acceso al soporte.
+async function ensureSupport() {
+  if (!config.supportUser || !config.supportPassword) return;
+  const existing = await query('SELECT id FROM users WHERE username = $1', [config.supportUser]);
+  if (existing.rowCount) {
+    await query(`UPDATE users SET role = 'support' WHERE id = $1`, [existing.rows[0].id]);
+    console.log(`OK: soporte listo (${config.supportUser})`);
+    return;
+  }
+  const hash = await bcrypt.hash(config.supportPassword, 10);
+  await query(`INSERT INTO users (username, password_hash, name, role) VALUES ($1, $2, 'Soporte', 'support')`, [
+    config.supportUser,
+    hash,
+  ]);
+  console.log(`OK: soporte creado (${config.supportUser})`);
+}
+
 async function ensureSettings() {
   await query('UPDATE store_settings SET timezone = $1 WHERE id = 1', [config.storeTimezone]);
   const current = await query('SELECT name FROM store_settings WHERE id = 1');
@@ -209,6 +227,7 @@ async function migrate() {
   console.log('OK: schema aplicado');
   await ensureSettings();
   await ensureAdmin();
+  await ensureSupport();
   await seedDemo();
   console.log('Migrations completed successfully.');
 }

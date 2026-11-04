@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { api } from '../api';
+import { useAuth } from '../auth';
 import { useStore } from '../store';
 
 export default function SettingsPage() {
@@ -64,7 +65,71 @@ export default function SettingsPage() {
         </button>
       </form>
       <PasswordForm />
+      <SupportUsers />
     </div>
+  );
+}
+
+function SupportUsers() {
+  const { user } = useAuth();
+  const [users, setUsers] = useState([]);
+  const [drafts, setDrafts] = useState({});
+  const [notice, setNotice] = useState('');
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (user?.role === 'support') api.users().then((res) => setUsers(res.data)).catch((err) => setError(err.message));
+  }, [user?.role]);
+
+  if (user?.role !== 'support') return null;
+
+  return (
+    <section className="mt-10 max-w-xl space-y-4 border-t border-[#dadce0] pt-6">
+      <div>
+        <h2 className="text-lg font-medium">Usuarios (solo soporte)</h2>
+        <p className="text-sm text-[#70757a]">Si el comercio olvidó su contraseña, poné una nueva y pasásela. Se cierran sus sesiones abiertas.</p>
+      </div>
+      {error && <div className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{error}</div>}
+      {notice && <div className="rounded-lg bg-[#e6f4ea] px-3 py-2 text-sm text-[#137333]">{notice}</div>}
+      {users
+        .filter((u) => u.id !== user.id)
+        .map((u) => (
+          <form
+            key={u.id}
+            className="flex flex-wrap items-end gap-3"
+            onSubmit={async (ev) => {
+              ev.preventDefault();
+              setError('');
+              setNotice('');
+              try {
+                await api.resetUserPassword(u.id, drafts[u.id] || '');
+                setDrafts({ ...drafts, [u.id]: '' });
+                setNotice(`Contraseña de ${u.username} restablecida.`);
+              } catch (err) {
+                setError(err.message);
+              }
+            }}
+          >
+            <label className="field min-w-0 flex-1">
+              <span>
+                Nueva contraseña para <b>{u.username}</b>
+              </span>
+              <input
+                id={`reset-${u.id}`}
+                type="text"
+                autoComplete="off"
+                minLength={6}
+                value={drafts[u.id] || ''}
+                onChange={(e) => setDrafts({ ...drafts, [u.id]: e.target.value })}
+                required
+              />
+            </label>
+            <button className="pill-btn primary" type="submit">
+              Restablecer
+            </button>
+          </form>
+        ))}
+    </section>
   );
 }
 

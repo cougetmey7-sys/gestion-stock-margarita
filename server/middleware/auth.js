@@ -53,6 +53,7 @@ export function publicUser(user) {
     id: user.id,
     username: user.username,
     name: user.name,
+    role: user.role || 'admin',
   };
 }
 

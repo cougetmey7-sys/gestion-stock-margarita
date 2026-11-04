@@ -67,6 +67,9 @@ export const api = {
   me: () => request('/api/auth/me'),
   logout: () => request('/api/auth/logout', { method: 'POST', body: {} }),
   changePassword: (body) => request('/api/auth/password', { method: 'POST', body }),
+  users: () => request('/api/auth/users'),
+  resetUserPassword: (id, newPassword) =>
+    request(`/api/auth/users/${id}/password`, { method: 'POST', body: { newPassword } }),
   settings: () => request('/api/settings'),
   saveSettings: (body) => request('/api/settings', { method: 'PUT', body }),
   dashboard: () => request('/api/dashboard'),
