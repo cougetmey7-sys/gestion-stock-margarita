@@ -4,14 +4,10 @@
 // ({ sku, name, category, unit, cost_price, sale_price, description, ... }) comprimida con
 // gzip y cifrada con AES-256-GCM en scripts/data/catalogo-inicial.enc; la clave va en
 // INITIAL_PRODUCTS_KEY, así los costos del comercio no quedan legibles en el repositorio.
-import crypto from 'crypto';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import zlib from 'zlib';
 import { config } from '../server/config.js';
 import { getPool, withTransaction } from '../server/db/pool.js';
 import { hashKey } from '../server/lib/license.js';
+import { readCatalog } from './catalog-file.js';
 
 const TABLES = [
   'fixed_expense_payments',
@@ -31,17 +27,6 @@ const TABLES = [
   'suppliers',
 ];
 
-const CATALOG_FILE = path.join(path.dirname(fileURLToPath(import.meta.url)), 'data', 'catalogo-inicial.enc');
-
-function readCatalog(keyHex) {
-  if (!keyHex) return [];
-  const raw = Buffer.from(fs.readFileSync(CATALOG_FILE, 'utf8'), 'base64');
-  const decipher = crypto.createDecipheriv('aes-256-gcm', Buffer.from(keyHex, 'hex'), raw.subarray(0, 12));
-  decipher.setAuthTag(raw.subarray(12, 28));
-  const gz = Buffer.concat([decipher.update(raw.subarray(28)), decipher.final()]);
-  return JSON.parse(zlib.gunzipSync(gz).toString('utf8'));
-}
-
 function parseSuppliers(raw) {
   if (!raw) return [];
   return JSON.parse(raw);
@@ -53,7 +38,7 @@ async function run() {
     console.log('reset: omitido (falta RESET_CONFIRM o RESET_TOKEN)');
     return;
   }
-  const rows = readCatalog((process.env.INITIAL_PRODUCTS_KEY || '').trim());
+  const rows = readCatalog('catalogo-inicial.enc', (process.env.INITIAL_PRODUCTS_KEY || '').trim());
 
   await withTransaction(async (client) => {
     await client.query(
