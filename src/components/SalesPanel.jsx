@@ -86,23 +86,23 @@ export default function SalesPanel({ currency }) {
       {data?.period === period && (
         <>
           <div className="mb-5 grid grid-cols-3 gap-3">
-            <div>
+            <div className="min-w-0">
               <div className="kpi-label">{meta.current}</div>
-              <div className="kpi-value text-[17px] sm:text-[28px]">{money(data.current.total, currency)}</div>
+              <div className="kpi-value kpi-compact">{money(data.current.total, currency)}</div>
               <div className="mt-1 text-xs sm:text-sm">
                 <Change current={data.current.total} previous={data.previous.total} period={period} />
               </div>
             </div>
-            <div>
+            <div className="min-w-0">
               <div className="kpi-label">Comprobantes</div>
-              <div className="kpi-value text-[17px] sm:text-[22px]">{data.current.count}</div>
+              <div className="kpi-value kpi-compact">{data.current.count}</div>
               <div className="mt-1 text-xs text-[#70757a] sm:text-sm">
                 {data.previous.count} {PERIODS[period].previous}
               </div>
             </div>
-            <div>
+            <div className="min-w-0">
               <div className="kpi-label">Ticket promedio</div>
-              <div className="kpi-value text-[17px] sm:text-[22px]">{money(data.current.average, currency)}</div>
+              <div className="kpi-value kpi-compact">{money(data.current.average, currency)}</div>
             </div>
           </div>
 

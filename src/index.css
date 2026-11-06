@@ -208,6 +208,10 @@ button, input, select, textarea { font-family: inherit; }
   font-weight: 600;
   letter-spacing: -0.02em;
 }
+.kpi-value.kpi-compact {
+  font-size: clamp(14px, 3.9vw, 24px);
+  font-variant-numeric: tabular-nums;
+}
 
 .badge {
   display: inline-flex;
