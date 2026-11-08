@@ -1,17 +1,12 @@
-const LOGO_URL = 'https://ftdfdozojlgvffomivrm.supabase.co/storage/v1/object/public/publico/logo-white.png';
-const INSTAGRAM_URL = 'https://www.instagram.com/profesia.ia/';
+const SITE_URL = 'https://visualimpacto.com';
 
 export default function PoweredBy() {
   return (
-    <a
-      className="powered-by"
-      href={INSTAGRAM_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Powered by ProfesIA"
-    >
-      <span>Powered by</span>
-      <img src={LOGO_URL} alt="ProfesIA" />
+    <a className="powered-by" href={SITE_URL} target="_blank" rel="noopener noreferrer" aria-label="Hecho por Visual Impacto">
+      <span>Hecho por</span>
+      <span className="vi-mark">
+        Visual <b>Impacto</b>
+      </span>
     </a>
   );
 }

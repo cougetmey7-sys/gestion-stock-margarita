@@ -83,7 +83,7 @@ export default function Layout() {
         <div className="fixed inset-0 z-40 lg:hidden" onClick={() => setOpen(false)}>
           <div className="absolute inset-0 bg-black/20" />
           <aside
-            className="absolute bottom-0 left-0 top-0 w-[min(320px,90vw)] overflow-auto bg-white p-4 shadow-xl"
+            className="sidebar absolute bottom-0 left-0 top-0 w-[min(320px,90vw)] overflow-auto p-4 shadow-xl"
             onClick={(ev) => ev.stopPropagation()}
           >
             <div className="mb-4 flex items-center justify-between">
@@ -97,7 +97,7 @@ export default function Layout() {
         </div>
       )}
       <div className="flex min-h-0 flex-1">
-        <aside className="hidden w-[240px] shrink-0 overflow-auto border-r border-[#dadce0] py-3 lg:block">
+        <aside className="sidebar hidden w-[240px] shrink-0 overflow-auto py-3 lg:block">
           <Nav />
         </aside>
         <main className="min-h-0 min-w-0 flex-1 overflow-hidden">

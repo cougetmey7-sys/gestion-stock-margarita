@@ -78,10 +78,17 @@ button, input, select, textarea { font-family: inherit; }
   color: #fff;
   background: #1a1a1a;
 }
-.powered-by img {
-  height: 26px;
-  width: auto;
-  display: block;
+.powered-by .vi-mark {
+  font-family: "Sora", Inter, system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #f4f6fb;
+}
+.powered-by .vi-mark b {
+  font-weight: 800;
+  color: #ff6a2b;
 }
 
 .modal-backdrop {
@@ -140,6 +147,19 @@ button, input, select, textarea { font-family: inherit; }
 }
 .nav-link.active { background: var(--brand-yellow); color: var(--brand-dark); }
 .nav-link:hover:not(.active) { background: #f1f3f4; }
+
+/* Menú lateral oscuro, con el negro y el amarillo de la marca del comercio. */
+.sidebar {
+  background: var(--brand-dark);
+  color: #ecebe6;
+}
+.sidebar .nav-link { color: #d9d7cf; }
+.sidebar .nav-link svg { color: #a8a59b; }
+.sidebar .nav-link:hover:not(.active) { background: rgba(255, 255, 255, 0.08); color: #fff; }
+.sidebar .nav-link.active { background: var(--brand-yellow); color: var(--brand-dark); font-weight: 600; }
+.sidebar .nav-link.active svg { color: var(--brand-dark); }
+.sidebar .icon-btn { color: #ecebe6; }
+.sidebar .icon-btn:hover { background: rgba(255, 255, 255, 0.1); }
 
 .sitemap {
   display: flex;
