@@ -1,5 +1,5 @@
-// Suma productos al catálogo sin borrar nada: los que ya existen (mismo SKU o código de
-// barras) se dejan como están. Corre una sola vez por ADD_TOKEN, registrado en
+// Suma productos y proveedores sin borrar nada: los productos que ya existen (mismo SKU o
+// código de barras) y los proveedores con el mismo nombre se dejan como están. Corre una sola vez por ADD_TOKEN, registrado en
 // maintenance_runs. Lee ADD_PRODUCTS_FILE (en scripts/data) con la clave ADD_PRODUCTS_KEY.
 import { getPool, withTransaction } from '../server/db/pool.js';
 import { readCatalog } from './catalog-file.js';
@@ -11,7 +11,10 @@ async function run() {
     console.log('add-products: omitido (falta ADD_TOKEN o ADD_PRODUCTS_FILE)');
     return;
   }
-  const rows = readCatalog(file, (process.env.ADD_PRODUCTS_KEY || '').trim());
+  const catalog = readCatalog(file, (process.env.ADD_PRODUCTS_KEY || '').trim());
+  // El archivo puede ser una lista de productos o { products, suppliers }.
+  const rows = Array.isArray(catalog) ? catalog : catalog.products || [];
+  const suppliers = Array.isArray(catalog) ? [] : catalog.suppliers || [];
 
   await withTransaction(async (client) => {
     await client.query(
@@ -47,8 +50,20 @@ async function run() {
       );
       added += 1;
     }
+    let suppliersAdded = 0;
+    for (const s of suppliers) {
+      const found = await client.query('SELECT 1 FROM suppliers WHERE lower(name) = lower($1)', [s.name]);
+      if (found.rowCount) continue;
+      await client.query(
+        'INSERT INTO suppliers (name, tax_id, phone, email, address, notes) VALUES ($1, $2, $3, $4, $5, $6)',
+        [s.name, s.taxId || null, s.phone || null, s.email || null, s.address || null, s.notes || null]
+      );
+      suppliersAdded += 1;
+    }
     await client.query('INSERT INTO maintenance_runs (name) VALUES ($1)', [token]);
-    console.log(`add-products: ${token} aplicado · ${added} agregados · ${skipped} ya existían`);
+    console.log(
+      `add-products: ${token} aplicado · ${added} agregados · ${skipped} ya existían · ${suppliersAdded} proveedores nuevos`
+    );
   });
 }
 
